@@ -71,6 +71,32 @@
     </section>
   </main>
 
+  
+  <div class="container">
+    <h1>お知らせ</h1>
+    <div class="reel" id="reel-container">
+      <!-- CSV読み込み内容がここに表示されます -->
+    </div>
+  </div>
+
+  <script>
+    fetch('data/news.csv')
+      .then(response => response.text())
+      .then(csv => {
+        const lines = csv.trim().split('\n');
+        const container = document.getElementById('reel-container');
+        lines.slice(1).forEach(line => {
+          const [date, message] = line.split(',');
+          const item = document.createElement('div');
+          item.className = 'reel-item';
+          item.innerHTML = `<strong>${date}</strong>：${message}`;
+          container.appendChild(item);
+        });
+      });
+  </script>
+</body>
+
+<body>
   <footer>
     <p>&copy; 2025 大阪教育大学附属池田中学校 CP17班</p>
   </footer>
