@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT辞典</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f0f4f8;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+    #card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    }
+    .term {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #004080;
+    }
+    .description {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>IT辞典</h1>
+  <div id="card-container"></div>
+
+  <script>
+    async function loadCSV() {
+      const response = await fetch('data/it_safety.csv');
+      const text = await response.text();
+      const rows = text.trim().split('\n').slice(1);
+      const container = document.getElementById('card-container');
+
+      rows.forEach(row => {
+        const [term, description] = row.split(',');
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+          <div class="term">${term}</div>
+          <div class="description">${description}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    loadCSV();
+  </script>
+</body>
+</html>
