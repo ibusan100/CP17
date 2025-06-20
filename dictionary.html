@@ -77,7 +77,12 @@
       const container = document.getElementById('card-container');
 
       rows.forEach(row => {
-        const [term, description] = row.split(',');
+        // カンマが2つ以上含まれている場合（用語と説明に分かれる前提）
+        const firstComma = row.indexOf(',');
+        if (firstComma === -1) return; // カンマがない行はスキップ
+        const term = row.slice(0, firstComma).trim();
+        const description = row.slice(firstComma + 1).trim();
+
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
