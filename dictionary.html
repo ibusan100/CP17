@@ -7,11 +7,6 @@
   <title>IT辞典</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f9fbfd;
-      margin: 0;
-    }
     header {
       background-color: #003366;
       padding: 1rem 2rem;
@@ -20,28 +15,35 @@
       justify-content: space-between;
       align-items: center;
     }
-    nav a {
-      color: white;
-      margin-left: 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .about-container {
-      max-width: 700px;
-      margin: 2rem auto;
-      background: white;
-      border-radius: 16px;
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f0f4f8;
       padding: 2rem;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
     }
     h1 {
       text-align: center;
       color: #003366;
     }
-    p {
-      color: #444;
-      line-height: 1.8;
-      font-size: 1rem;
+    #card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    }
+    .term {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #004080;
+    }
+    .description {
+      color: #333;
     }
   </style>
 </head>
@@ -55,8 +57,6 @@
       <a href="about.html">制作者について</a>
     </nav>
   </header>
-</body>
-<body>
   <h1>IT辞典</h1>
   <div id="card-container"></div>
 
