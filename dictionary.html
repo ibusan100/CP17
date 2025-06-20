@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IT辞典</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f0f4f8;
+    }
     header {
       background-color: #003366;
       padding: 1rem 2rem;
@@ -15,20 +19,24 @@
       justify-content: space-between;
       align-items: center;
     }
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f0f4f8;
-      padding: 2rem;
+    nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
     }
     h1 {
       text-align: center;
       color: #003366;
+      margin-top: 2rem;
     }
     #card-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+      padding: 0 1rem;
     }
     .card {
       background: white;
@@ -57,6 +65,7 @@
       <a href="about.html">制作者について</a>
     </nav>
   </header>
+
   <h1>IT辞典</h1>
   <div id="card-container"></div>
 
@@ -64,14 +73,13 @@
     async function loadCSV() {
       const response = await fetch('data/it_safety.csv');
       const text = await response.text();
-      const rows = text.trim().split('\n').slice(1);
+      const rows = text.trim().split('\\n').slice(1);
       const container = document.getElementById('card-container');
 
       rows.forEach(row => {
         const [term, description] = row.split(',');
         const card = document.createElement('div');
         card.className = 'card';
-
         card.innerHTML = `
           <div class="term">${term}</div>
           <div class="description">${description}</div>
