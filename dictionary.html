@@ -115,7 +115,44 @@
       });
     }
 
-    loadCSV();
+    async function loadCSV() {
+  const container = document.getElementById('card-container');
+  container.innerHTML = '';  // いったん空にする
+
+  try {
+    const response = await fetch('data/it_safety.csv');
+    if (!response.ok) {
+      throw new Error('CSVファイルの取得に失敗しました。');
+    }
+    const text = await response.text();
+    const rows = text.trim().split('\n').slice(1);
+
+    if (rows.length === 0) {
+      throw new Error('CSVファイルにデータがありません。');
+    }
+
+    rows.forEach(row => {
+      const firstComma = row.indexOf(',');
+      if (firstComma === -1) return;
+      const term = row.slice(0, firstComma).trim();
+      const description = row.slice(firstComma + 1).trim();
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="term">${term}</div>
+        <div class="description">${description}</div>
+      `;
+      container.appendChild(card);
+    });
+  } catch (error) {
+    container.innerHTML = `<p style="color:red; text-align:center;">エラー: ${error.message}</p>`;
+    console.error(error);
+  }
+}
+
+loadCSV();
+
   </script>
 
   <style>
