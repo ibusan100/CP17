@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IT辞典</title>
-  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       margin: 0;
@@ -52,6 +51,23 @@
     }
     .description {
       color: #333;
+      margin-bottom: 1rem;
+    }
+    .details {
+      display: none;
+      color: #555;
+      margin-top: 0.5rem;
+      border-top: 1px dashed #ccc;
+      padding-top: 0.5rem;
+    }
+    .toggle-btn {
+      background-color: #3399cc;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -77,23 +93,35 @@
       const container = document.getElementById('card-container');
 
       rows.forEach(row => {
-        // カンマが2つ以上含まれている場合（用語と説明に分かれる前提）
-        const firstComma = row.indexOf(',');
-        if (firstComma === -1) return; // カンマがない行はスキップ
-        const term = row.slice(0, firstComma).trim();
-        const description = row.slice(firstComma + 1).trim();
+        const cols = row.split(',');
+        if (cols.length < 3) return;
+
+        const [title, shortDesc, longDesc] = cols;
 
         const card = document.createElement('div');
         card.className = 'card';
+
+        const detailId = 'detail-' + Math.random().toString(36).substr(2, 9);
         card.innerHTML = `
-          <div class="term">${term}</div>
-          <div class="description">${description}</div>
+          <div class="term">${title}</div>
+          <div class="description">${shortDesc}</div>
+          <button class="toggle-btn" onclick="document.getElementById('${detailId}').classList.toggle('show');">
+            【詳しい説明】
+          </button>
+          <div class="details" id="${detailId}">${longDesc}</div>
         `;
+
         container.appendChild(card);
       });
     }
 
     loadCSV();
   </script>
+
+  <style>
+    .details.show {
+      display: block;
+    }
+  </style>
 </body>
 </html>
