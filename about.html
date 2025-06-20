@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>制作者について-ITリテラシー学習サイト</title>
+  <title>制作者について</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f2f5f9;
+      background-color: #f9fbfd;
+      margin: 0;
     }
     header {
       background-color: #003366;
@@ -25,56 +25,43 @@
       text-decoration: none;
       font-weight: bold;
     }
-    .container {
-      max-width: 800px;
+    .about-container {
+      max-width: 700px;
       margin: 2rem auto;
-      padding: 1rem;
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
     }
     h1 {
       text-align: center;
       color: #003366;
     }
-    .reel {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .reel-item {
-      padding: 1rem;
-      background: #e9f3ff;
-      border-left: 6px solid #3399cc;
-      border-radius: 8px;
-      animation: slideIn 0.5s ease;
-    }
-    @keyframes slideIn {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    p {
+      color: #444;
+      line-height: 1.8;
+      font-size: 1rem;
     }
   </style>
 </head>
-
 <body>
+  <header>
+    <div>ITリテラシー学習サイト</div>
+    <nav>
+      <a href="index.html">ホーム</a>
+      <a href="dictionary.html">IT辞典</a>
+      <a href="game.html">ゲームで学ぶ</a>
+      <a href="about.html">制作者について</a>
+    </nav>
+  </header>
+
   <div class="about-container">
     <h1>制作者について</h1>
     <p>このWebサイトは、昨今スマホの所持やネット利用を始める年齢が下がっていることで子どもが多くのリスクを被るようになったことを受け、</p>
     <p>インターネットリテラシーについて小学生が気軽にわかりやすく学べるように制作されました。。</p>
     <p>大阪教育大学附属池田中学校　コミュニティプロジェクト17班</p>
     <p>ご意見や改善提案があれば、お気軽にご連絡ください。</p>
-  </div>
-</body>
-  <body>
-  <div class="about-container">
-    <p>連絡先:is17256@g.oku.ed.jp</p>
+    <p>連絡先: <a href="mailto:is17256@g.oku.ed.jp">is17256@g.oku.ed.jp</a></p>
   </div>
 </body>
 </html>
