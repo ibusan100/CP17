@@ -69,6 +69,9 @@
       cursor: pointer;
       font-size: 0.9rem;
     }
+    .details.show {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -87,78 +90,45 @@
 
   <script>
     async function loadCSV() {
-      const response = await fetch('data/it_safety.csv');
-      const text = await response.text();
-      const rows = text.trim().split('\\n').slice(1);
       const container = document.getElementById('card-container');
+      container.innerHTML = '';
 
-      rows.forEach(row => {
-        const cols = row.split(',');
-        if (cols.length < 3) return;
+      try {
+        const response = await fetch('data/it_safety.csv');
+        if (!response.ok) throw new Error('CSVファイルの取得に失敗しました。');
+        const text = await response.text();
+        const rows = text.trim().split('\n').slice(1);
 
-        const [title, shortDesc, longDesc] = cols;
+        if (rows.length === 0) throw new Error('CSVファイルにデータがありません。');
 
-        const card = document.createElement('div');
-        card.className = 'card';
+        rows.forEach(row => {
+          const cols = row.split(',');
+          if (cols.length < 3) return;
 
-        const detailId = 'detail-' + Math.random().toString(36).substr(2, 9);
-        card.innerHTML = `
-          <div class="term">${title}</div>
-          <div class="description">${shortDesc}</div>
-          <button class="toggle-btn" onclick="document.getElementById('${detailId}').classList.toggle('show');">
-            【詳しい説明】
-          </button>
-          <div class="details" id="${detailId}">${longDesc}</div>
-        `;
+          const [title, shortDesc, longDesc] = cols.map(col => col.trim());
+          const detailId = 'detail-' + Math.random().toString(36).substr(2, 9);
 
-        container.appendChild(card);
-      });
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="term">${title}</div>
+            <div class="description">${shortDesc}</div>
+            <button class="toggle-btn" onclick="document.getElementById('${detailId}').classList.toggle('show');">
+              もっと見る
+            </button>
+            <div class="details" id="${detailId}">${longDesc}</div>
+          `;
+
+          container.appendChild(card);
+        });
+      } catch (error) {
+        container.innerHTML = `<p style="color:red; text-align:center;">エラー: ${error.message}</p>`;
+        console.error(error);
+      }
     }
 
-    async function loadCSV() {
-  const container = document.getElementById('card-container');
-  container.innerHTML = '';  // いったん空にする
-
-  try {
-    const response = await fetch('data/it_safety.csv');
-    if (!response.ok) {
-      throw new Error('CSVファイルの取得に失敗しました。');
-    }
-    const text = await response.text();
-    const rows = text.trim().split('\n').slice(1);
-
-    if (rows.length === 0) {
-      throw new Error('CSVファイルにデータがありません。');
-    }
-
-    rows.forEach(row => {
-      const firstComma = row.indexOf(',');
-      if (firstComma === -1) return;
-      const term = row.slice(0, firstComma).trim();
-      const description = row.slice(firstComma + 1).trim();
-
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="term">${term}</div>
-        <div class="description">${description}</div>
-      `;
-      container.appendChild(card);
-    });
-  } catch (error) {
-    container.innerHTML = `<p style="color:red; text-align:center;">エラー: ${error.message}</p>`;
-    console.error(error);
-  }
-}
-
-loadCSV();
-
+    loadCSV();
   </script>
-
-  <style>
-    .details.show {
-      display: block;
-    }
-  </style>
 </body>
 </html>
+
